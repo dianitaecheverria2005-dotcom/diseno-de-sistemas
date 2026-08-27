@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY . .
 
-CMD ["python", "patos_roto.py"]
+CMD ["python", "vehiculo.py"]
