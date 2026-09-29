@@ -1,0 +1,58 @@
+from abc import ABC, abstractmethod
+
+
+class EstrategiaDescuento(ABC):
+    @abstractmethod
+    def aplicar(self, precio_base):
+        pass
+
+
+class SinDescuento(EstrategiaDescuento):
+    def aplicar(self, precio_base):
+        return precio_base
+
+
+class DescuentoVIP(EstrategiaDescuento):
+    def aplicar(self, precio_base):
+        return precio_base * 0.8
+
+
+class DescuentoEstudiante(EstrategiaDescuento):
+    def aplicar(self, precio_base):
+        return precio_base * 0.95
+
+
+class DescuentoEmpleado(EstrategiaDescuento):
+    def aplicar(self, precio_base):
+        return precio_base * 0.25
+
+
+class Compra:
+    def __init__(self, estrategiaDescuento):
+        self.estrategiaDescuento = estrategiaDescuento
+
+    def calcular_total(self, precio):
+        return self.estrategiaDescuento.aplicar(precio)
+
+
+def main():
+    sin_descuento = SinDescuento()
+    vip_descuento = DescuentoVIP()
+    estud_descuento = DescuentoEstudiante()
+    empl_descuento = DescuentoEmpleado()
+
+    compra_1 = Compra(sin_descuento)
+    print("Sin descuento:", compra_1.calcular_total(100))
+
+    compra_2 = Compra(vip_descuento)
+    print("Descuento VIP:", compra_2.calcular_total(1000))
+
+    compra_3 = Compra(estud_descuento)
+    print("Descuento estudiante:", compra_3.calcular_total(10))
+
+    compra_4 = Compra(empl_descuento)
+    print("Descuento empleado:", compra_4.calcular_total(10000))
+
+
+if __name__ == "__main__":
+    main()
